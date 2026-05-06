@@ -22,7 +22,7 @@ public class APIManager : MonoBehaviour
     public static Action<MachineData> GotApiData;
     public static Action<string> OnApiFailed;   // New: notifies UIManager on failure
 
-    public string address = "http://192.168.40.130";
+    public string address = "http://192.168.40.30";
 
     [SerializeField] public int port = 8000;
     [SerializeField] public bool isConnected = false;
@@ -31,13 +31,13 @@ public class APIManager : MonoBehaviour
 
     void OnEnable()
     {
-        GetQRpose.OnQRDetected += OnQRCodeScanned;
+        // GetQRpose.OnQRDetected += OnQRCodeScanned;
         ConnectBtn.OnConnectFromPanel2 +=GotAddress;
     }
 
     void OnDisable()
     {
-        GetQRpose.OnQRDetected -= OnQRCodeScanned;
+        // GetQRpose.OnQRDetected -= OnQRCodeScanned;
         ConnectBtn.OnConnectFromPanel2 -=GotAddress;
     }
     void GotAddress(string newAddress)
@@ -47,7 +47,7 @@ public class APIManager : MonoBehaviour
 
     }
 
-    void OnQRCodeScanned(string qrCodeData, Vector3 worldPos, Quaternion worldRot)
+   public void OnQRCodeScanned(string qrCodeData, Vector3 worldPos, Quaternion worldRot)
     {
         Debug.Log("QR Code Scanned: " + qrCodeData);
         string url = $"{address}:{port}/data?qr=" + UnityWebRequest.EscapeURL(qrCodeData);
